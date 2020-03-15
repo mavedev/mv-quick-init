@@ -45,7 +45,8 @@ _VANILLAJS_PLUGIN_COMMAND: str = 'npm i -D eslint-plugin-import@^2.20.1'
 _VANILLAJS_COMMANDS: List[str] = [
     _VANILLAJS_ESLINT_COMMAND,
     _VANILLAJS_AIRBNB_COMMAND,
-    _VANILLAJS_PLUGIN_COMMAND
+    _VANILLAJS_PLUGIN_COMMAND,
+    _COMMON_COMMAND_GITINIT
 ]
 _VANILLAJS_PUBLIC_DIR: str = 'public'
 _VANILLAJS_TESTER_DIR: str = 'test'
@@ -58,6 +59,7 @@ _VANILLAJS_EDITOR_FILES: List[str] = [
     '.eslintrc.json',
     '.eslintignore',
 ]
+_VANILLAJS_TEMPLATE_MAIN_FILE: str = 'index.js'
 
 # Ouptut.
 _ON_SETUP_ENVIRONMENT: str = 'Configuring environment for the project...'

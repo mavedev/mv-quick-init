@@ -27,6 +27,7 @@ from .constants import (
     _VANILLAJS_COMMANDS,
     _VANILLAJS_WORK_DIRS,
     _VANILLAJS_EDITOR_FILES,
+    _VANILLAJS_TEMPLATE_MAIN_FILE,
     _ON_SETUP_ENVIRONMENT,
     _ON_SETUP_DIRECTORIES,
     _ON_SETUP_START_FILES
@@ -112,6 +113,10 @@ class JSApp(App):
                 os.path.join(self.__source, file),
                 self.__target
             )
+        shcopy(
+            os.path.join(self.__source, _VANILLAJS_TEMPLATE_MAIN_FILE),
+            self.__target
+        )
 
     def __create_json(self) -> None:
         shcopy(
