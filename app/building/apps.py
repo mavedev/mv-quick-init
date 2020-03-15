@@ -12,22 +12,21 @@ from .constants import (
     Path,
     JSONConfig,
     _COMMON_KEEP_FILE,
-    _COMMON_IGNORE_FILE,
     _PYTHON_WORK_DIRS,
     _PYTHON_EDITOR_DIR,
     _PYTHON_APP_DIR,
     _PYTHON_EDITOR_CONF_FILE,
     _PYTHON_TEMPLATE_PATH,
-    _PYTHON_TEMPLATE_MAIN_FILE,
     _PYTHON_TEMPLATE_CONF_FILE,
     _PYTHON_COMMANDS,
+    _PYTHON_START_FILES,
     _VANILLAJS_TEMPLATE_PATH,
     _VANILLAJS_PROJECT_JSON,
     _VANILLAJS_PROJECT_JSON_INSERTION,
     _VANILLAJS_COMMANDS,
     _VANILLAJS_WORK_DIRS,
     _VANILLAJS_EDITOR_FILES,
-    _VANILLAJS_TEMPLATE_MAIN_FILE,
+    _VANILLAJS_START_FILES,
     _ON_SETUP_ENVIRONMENT,
     _ON_SETUP_DIRECTORIES,
     _ON_SETUP_START_FILES
@@ -61,6 +60,12 @@ class App:
 
 
 class PythonApp(App):
+    def __init__(self) -> None:
+        self.__source: Path = os.path.abspath(
+            os.path.join(self._SOURCE, _PYTHON_TEMPLATE_PATH)
+        )
+        self.__target: Path = os.getcwd()
+
     def _setup_environment(self) -> None:
         for command in _PYTHON_COMMANDS:
             os.system(command)
@@ -72,21 +77,17 @@ class PythonApp(App):
         open(os.path.join(_PYTHON_APP_DIR, _COMMON_KEEP_FILE), 'w+').close()
 
     def _setup_start_files(self) -> None:
-        source: Path = os.path.abspath(
-            os.path.join(self._SOURCE, _PYTHON_TEMPLATE_PATH)
-        )
-        target: Path = os.getcwd()
+        for file in _PYTHON_START_FILES:
+            shcopy(
+                os.path.join(self.__source, file),
+                self.__target
+            )
         shcopy(
-            os.path.join(source, _COMMON_IGNORE_FILE),
-            target
-        )
-        shcopy(
-            os.path.join(source, _PYTHON_TEMPLATE_MAIN_FILE),
-            target
-        )
-        shcopy(
-            os.path.join(source, _PYTHON_TEMPLATE_CONF_FILE),
-            os.path.join(target, _PYTHON_EDITOR_DIR, _PYTHON_EDITOR_CONF_FILE)
+            os.path.join(self.__source, _PYTHON_TEMPLATE_CONF_FILE),
+            os.path.join(
+                self.__target, _PYTHON_EDITOR_DIR,
+                _PYTHON_EDITOR_CONF_FILE
+            )
         )
 
 
@@ -113,10 +114,11 @@ class JSApp(App):
                 os.path.join(self.__source, file),
                 self.__target
             )
-        shcopy(
-            os.path.join(self.__source, _VANILLAJS_TEMPLATE_MAIN_FILE),
-            self.__target
-        )
+        for file in _VANILLAJS_START_FILES:
+            shcopy(
+                os.path.join(self.__source, file),
+                self.__target
+            )
 
     def __create_json(self) -> None:
         shcopy(

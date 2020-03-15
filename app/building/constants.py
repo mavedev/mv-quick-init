@@ -26,6 +26,10 @@ _PYTHON_COMMANDS: List[str] = [
 ]
 _PYTHON_TEMPLATE_CONF_FILE: str = 'default.json'
 _PYTHON_TEMPLATE_MAIN_FILE: str = '__main__.py'
+_PYTHON_START_FILES: List[str] = [
+    _PYTHON_TEMPLATE_MAIN_FILE,
+    _COMMON_IGNORE_FILE
+]
 _PYTHON_EDITOR_CONF_FILE: str = 'settings.json'
 _PYTHON_TEMPLATE_PATH: str = '../../templates/python'
 
@@ -60,6 +64,10 @@ _VANILLAJS_EDITOR_FILES: List[str] = [
     '.eslintignore',
 ]
 _VANILLAJS_TEMPLATE_MAIN_FILE: str = 'index.js'
+_VANILLAJS_START_FILES: List[str] = [
+    _VANILLAJS_TEMPLATE_MAIN_FILE,
+    _COMMON_IGNORE_FILE
+]
 
 # Ouptut.
 _ON_SETUP_ENVIRONMENT: str = 'Configuring environment for the project...'
