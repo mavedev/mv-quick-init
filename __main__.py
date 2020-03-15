@@ -11,6 +11,8 @@ def main() -> None:
         AppFactory.get_app(AppType.PYTHON_APP).create()
     elif args.js:
         AppFactory.get_app(AppType.JS_APP).create()
+    elif args.ts:
+        AppFactory.get_app(AppType.TS_APP).create()
 
 
 if __name__ == '__main__':

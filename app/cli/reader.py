@@ -18,6 +18,11 @@ def get_parsed_arguments() -> argparse.Namespace:
         action='store_true',
         help='Init a Javascript project.'
     )
+    parser.add_argument(
+        '--ts',
+        action='store_true',
+        help='Init a Typescript project.'
+    )
     if not sys.argv[1:]:
         parser.print_help()
 

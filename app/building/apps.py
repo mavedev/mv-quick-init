@@ -12,6 +12,7 @@ from .constants import (
     Path,
     JSONConfig,
     _COMMON_KEEP_FILE,
+    _COMMON_IGNORE_FILE,
     _PYTHON_WORK_DIRS,
     _PYTHON_EDITOR_DIR,
     _PYTHON_APP_DIR,
@@ -27,6 +28,16 @@ from .constants import (
     _VANILLAJS_WORK_DIRS,
     _VANILLAJS_EDITOR_FILES,
     _VANILLAJS_START_FILES,
+    _TYPESCRIPT_TEMPLATE_PATH,
+    _TYPESCRIPT_PROJECT_JSON,
+    _TYPESCRIPT_PROJECT_JSON_INSERTION,
+    _TYPESCRIPT_COMMANDS,
+    _TYPESCRIPT_PUBLIC_DIR,
+    _TYPESCRIPT_SOURCE_DIR,
+    _TYPESCRIPT_TESTER_DIR,
+    _TYPESCRIPT_WORK_DIRS,
+    _TYPESCRIPT_EDITOR_FILES,
+    _TYPESCRIPT_TEMPLATE_MAIN_FILE,
     _ON_SETUP_ENVIRONMENT,
     _ON_SETUP_DIRECTORIES,
     _ON_SETUP_START_FILES
@@ -36,6 +47,7 @@ from .constants import (
 class AppType(Enum):
     PYTHON_APP = 1
     JS_APP = 2
+    TS_APP = 3
 
 
 class App:
@@ -139,4 +151,64 @@ class JSApp(App):
 
     def __config_libs(self) -> None:
         for command in _VANILLAJS_COMMANDS:
+            os.system(command)
+
+
+class TSApp(App):
+    def __init__(self) -> None:
+        self.__source: Path = os.path.abspath(
+            os.path.join(self._SOURCE, _TYPESCRIPT_TEMPLATE_PATH)
+        )
+        self.__target: Path = os.getcwd()
+
+    def _setup_environment(self) -> None:
+        self.__create_json()
+        self.__config_json()
+        self.__config_libs()
+
+    def _setup_directories(self) -> None:
+        for folder_ in _TYPESCRIPT_WORK_DIRS:
+            os.mkdir(folder_)
+
+        open(
+            os.path.join(_TYPESCRIPT_PUBLIC_DIR, _COMMON_KEEP_FILE), 'w+'
+        ).close()
+        open(
+            os.path.join(_TYPESCRIPT_TESTER_DIR, _COMMON_KEEP_FILE), 'w+'
+        ).close()
+
+    def _setup_start_files(self) -> None:
+        for file in _TYPESCRIPT_EDITOR_FILES:
+            shcopy(
+                os.path.join(self.__source, file),
+                self.__target
+            )
+        shcopy(
+            os.path.join(self.__source, _COMMON_IGNORE_FILE),
+            self.__target
+        )
+        shcopy(
+            os.path.join(self.__source, _TYPESCRIPT_TEMPLATE_MAIN_FILE),
+            os.path.join(self.__target, _TYPESCRIPT_SOURCE_DIR)
+        )
+
+    def __create_json(self) -> None:
+        shcopy(
+            os.path.join(self.__source, _TYPESCRIPT_PROJECT_JSON),
+            self.__target
+        )
+
+    def __config_json(self) -> None:
+        conf_json: JSONConfig = get_json(
+            os.path.abspath(_TYPESCRIPT_PROJECT_JSON)
+        )
+        insertion: JSONConfig = _TYPESCRIPT_PROJECT_JSON_INSERTION
+        add_to_json(conf_json, insertion)
+        write_json(
+            os.path.abspath(_TYPESCRIPT_PROJECT_JSON),
+            conf_json
+        )
+
+    def __config_libs(self) -> None:
+        for command in _TYPESCRIPT_COMMANDS:
             os.system(command)

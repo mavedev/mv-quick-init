@@ -37,11 +37,7 @@ _PYTHON_TEMPLATE_PATH: str = '../../templates/python'
 _VANILLAJS_TEMPLATE_PATH: Path = '../../templates/vanillajs'
 _VANILLAJS_PROJECT_JSON: str = 'package.json'
 _VANILLAJS_PROJECT_JSON_INSERTION: JSONConfig = {
-    'name': os.path.basename(os.getcwd()),
-    'scripts': {
-        'start': 'node index',
-        'test': 'echo \"Error: no test specified\" && exit 1'
-    }
+    'name': os.path.basename(os.getcwd())
 }
 _VANILLAJS_ESLINT_COMMAND: str = 'npm i -D eslint@5'
 _VANILLAJS_AIRBNB_COMMAND: str = 'npm i -D eslint-config-airbnb-base'
@@ -66,6 +62,45 @@ _VANILLAJS_EDITOR_FILES: List[str] = [
 _VANILLAJS_TEMPLATE_MAIN_FILE: str = 'index.js'
 _VANILLAJS_START_FILES: List[str] = [
     _VANILLAJS_TEMPLATE_MAIN_FILE,
+    _COMMON_IGNORE_FILE
+]
+
+# Typescript config.
+_TYPESCRIPT_TEMPLATE_PATH: Path = '../../templates/typescript'
+_TYPESCRIPT_PROJECT_JSON: str = 'package.json'
+_TYPESCRIPT_PROJECT_JSON_INSERTION: JSONConfig = {
+    'name': os.path.basename(os.getcwd())
+}
+_TYPESCRIPT_ESLINT_COMMAND: str = 'npm i -D eslint@5'
+_TYPESCRIPT_PARSER_COMMAND: str = 'npm i -D @typescript-eslint/parser'
+_TYPESCRIPT_PLUGIN_COMMAND: str = 'npm i -D @typescript-eslint/eslint-plugin'
+_TYPESCRIPT_TSCORE_COMMAND: str = 'npm i -D typescript'
+_TYPESCRIPT_TYPING_COMMAND: str = 'npm i --save @types/node'
+_TYPESCRIPT_COMMANDS: List[str] = [
+    _TYPESCRIPT_ESLINT_COMMAND,
+    _TYPESCRIPT_PARSER_COMMAND,
+    _TYPESCRIPT_PLUGIN_COMMAND,
+    _TYPESCRIPT_TSCORE_COMMAND,
+    _TYPESCRIPT_TYPING_COMMAND,
+    _COMMON_COMMAND_GITINIT
+]
+_TYPESCRIPT_PUBLIC_DIR: str = 'dist'
+_TYPESCRIPT_SOURCE_DIR: str = 'src'
+_TYPESCRIPT_TESTER_DIR: str = 'test'
+_TYPESCRIPT_WORK_DIRS = [
+    _TYPESCRIPT_PUBLIC_DIR,
+    _TYPESCRIPT_SOURCE_DIR,
+    _TYPESCRIPT_TESTER_DIR
+]
+_TYPESCRIPT_EDITOR_FILES: List[str] = [
+    '.editorconfig',
+    '.eslintrc.json',
+    '.eslintignore',
+    'tsconfig.json'
+]
+_TYPESCRIPT_TEMPLATE_MAIN_FILE: str = 'index.ts'
+_TYPESCRIPT_START_FILES: List[str] = [
+    _TYPESCRIPT_TEMPLATE_MAIN_FILE,
     _COMMON_IGNORE_FILE
 ]
 
