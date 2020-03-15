@@ -25,6 +25,7 @@ from .constants import (
     _VANILLAJS_PROJECT_JSON,
     _VANILLAJS_PROJECT_JSON_INSERTION,
     _VANILLAJS_WORK_DIRS,
+    _VANILLAJS_EDITOR_FILES,
     _ON_SETUP_ENVIRONMENT,
     _ON_SETUP_DIRECTORIES,
     _ON_SETUP_START_FILES
@@ -88,6 +89,12 @@ class PythonApp(App):
 
 
 class JSApp(App):
+    def __init__(self) -> None:
+        self.__source: Path = os.path.abspath(
+            os.path.join(self._SOURCE, _VANILLAJS_TEMPLATE_PATH)
+        )
+        self.__target: Path = os.getcwd()
+
     def _setup_environment(self) -> None:
         self.__create_json()
         self.__config_json()
@@ -98,16 +105,16 @@ class JSApp(App):
             open(os.path.join(folder_, _COMMON_KEEP_FILE), 'w+').close()
 
     def _setup_start_files(self) -> None:
-        pass
+        for file in _VANILLAJS_EDITOR_FILES:
+            shcopy(
+                os.path.join(self.__source, file),
+                self.__target
+            )
 
     def __create_json(self) -> None:
-        source: Path = os.path.abspath(
-            os.path.join(self._SOURCE, _VANILLAJS_TEMPLATE_PATH)
-        )
-        target: Path = os.getcwd()
         shcopy(
-            os.path.join(source, _VANILLAJS_PROJECT_JSON),
-            target
+            os.path.join(self.__source, _VANILLAJS_PROJECT_JSON),
+            self.__target
         )
 
     def __config_json(self) -> None:

@@ -45,6 +45,11 @@ _VANILLAJS_WORK_DIRS = [
     _VANILLAJS_PUBLIC_DIR,
     _VANILLAJS_TESTER_DIR
 ]
+_VANILLAJS_EDITOR_FILES: List[str] = [
+    '.editorconfig',
+    '.eslintrc.json',
+    '.eslintignore',
+]
 
 # Ouptut.
 _ON_SETUP_ENVIRONMENT: str = 'Configuring environment for the project...'
