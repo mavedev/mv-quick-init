@@ -24,6 +24,7 @@ from .constants import (
     _VANILLAJS_TEMPLATE_PATH,
     _VANILLAJS_PROJECT_JSON,
     _VANILLAJS_PROJECT_JSON_INSERTION,
+    _VANILLAJS_WORK_DIRS,
     _ON_SETUP_ENVIRONMENT,
     _ON_SETUP_DIRECTORIES,
     _ON_SETUP_START_FILES
@@ -92,7 +93,9 @@ class JSApp(App):
         self.__config_json()
 
     def _setup_directories(self) -> None:
-        pass
+        for folder_ in _VANILLAJS_WORK_DIRS:
+            os.mkdir(folder_)
+            open(os.path.join(folder_, _COMMON_KEEP_FILE), 'w+').close()
 
     def _setup_start_files(self) -> None:
         pass

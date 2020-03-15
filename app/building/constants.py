@@ -39,6 +39,12 @@ _VANILLAJS_PROJECT_JSON_INSERTION: JSONConfig = {
         'test': 'echo \"Error: no test specified\" && exit 1'
     }
 }
+_VANILLAJS_PUBLIC_DIR: str = 'public'
+_VANILLAJS_TESTER_DIR: str = 'test'
+_VANILLAJS_WORK_DIRS = [
+    _VANILLAJS_PUBLIC_DIR,
+    _VANILLAJS_TESTER_DIR
+]
 
 # Ouptut.
 _ON_SETUP_ENVIRONMENT: str = 'Configuring environment for the project...'
