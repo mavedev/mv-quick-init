@@ -1,7 +1,16 @@
-from typing import List, Dict, Callable
+from typing import Dict, Callable
 
 from app.cli import get_finaling_text
 from .scenario import follow_all
+from .constants import (
+    _PYTHON_WORK_DIRS,
+    _PYTHON_EDITOR_DIR,
+    _PYTHON_EDITOR_CONF_FILE,
+    _PYTHON_TEMPLATE_PATH,
+    _PYTHON_TEMPLATE_MAIN_FILE,
+    _PYTHON_TEMPLATE_CONF_FILE,
+    _VENV_COMMAND
+)
 
 from enum import Enum
 from shutil import copy as shcopy
@@ -22,11 +31,6 @@ class App:
 
 
 class PythonApp(App):
-    _WORK_DIRS_PYTHON: List[str] = [
-        '.vscode',
-        'app'
-    ]
-
     def create(self) -> None:
         commented_actions: Dict[Callable, str] = {
             self.__setup_venv: 'Generating a virtual '
@@ -43,20 +47,25 @@ class PythonApp(App):
         ))
 
     def __setup_venv(self) -> None:
-        os.system('virtualenv venv')
+        os.system(_VENV_COMMAND)
 
     def __create_work_dirs(self) -> None:
-        for dir_ in self._WORK_DIRS_PYTHON:
+        for dir_ in _PYTHON_WORK_DIRS:
             os.mkdir(dir_)
 
     def __copy_templates(self) -> None:
         source: str = os.path.abspath(
-            os.path.join(self._SOURCE, '../../templates/python')
+            os.path.join(self._SOURCE, _PYTHON_TEMPLATE_PATH)
         )
         target: str = os.getcwd()
-        for file_name in os.listdir(source):
-            full_file_name = os.path.join(source, file_name)
-            shcopy(full_file_name, target)
+        shcopy(
+            os.path.join(source, _PYTHON_TEMPLATE_MAIN_FILE),
+            target
+        )
+        shcopy(
+            os.path.join(source, _PYTHON_TEMPLATE_CONF_FILE),
+            os.path.join(target, _PYTHON_EDITOR_DIR, _PYTHON_EDITOR_CONF_FILE)
+        )
 
 
 class JSApp(App):
