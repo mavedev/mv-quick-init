@@ -13,8 +13,7 @@ from .constants import (
     _VENV_COMMAND,
     _ON_SETUP_ENVIRONMENT,
     _ON_SETUP_DIRECTORIES,
-    _ON_SETUP_START_FILES,
-    _ON_CONFIGURING_ENDED
+    _ON_SETUP_START_FILES
 )
 
 from enum import Enum
@@ -38,7 +37,6 @@ class App:
             self._setup_start_files: _ON_SETUP_START_FILES
         }
         follow_all(scenario)
-        print(get_finaling_text(_ON_CONFIGURING_ENDED))
 
     def _setup_environment(self) -> None:
         raise NotImplementedError()
