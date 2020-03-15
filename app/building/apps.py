@@ -24,6 +24,7 @@ from .constants import (
     _VANILLAJS_TEMPLATE_PATH,
     _VANILLAJS_PROJECT_JSON,
     _VANILLAJS_PROJECT_JSON_INSERTION,
+    _VANILLAJS_COMMANDS,
     _VANILLAJS_WORK_DIRS,
     _VANILLAJS_EDITOR_FILES,
     _ON_SETUP_ENVIRONMENT,
@@ -98,6 +99,7 @@ class JSApp(App):
     def _setup_environment(self) -> None:
         self.__create_json()
         self.__config_json()
+        self.__config_libs()
 
     def _setup_directories(self) -> None:
         for folder_ in _VANILLAJS_WORK_DIRS:
@@ -127,3 +129,7 @@ class JSApp(App):
             os.path.abspath(_VANILLAJS_PROJECT_JSON),
             conf_json
         )
+
+    def __config_libs(self) -> None:
+        for command in _VANILLAJS_COMMANDS:
+            os.system(command)

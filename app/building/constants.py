@@ -39,6 +39,14 @@ _VANILLAJS_PROJECT_JSON_INSERTION: JSONConfig = {
         'test': 'echo \"Error: no test specified\" && exit 1'
     }
 }
+_VANILLAJS_ESLINT_COMMAND: str = 'npm i -D eslint@5'
+_VANILLAJS_AIRBNB_COMMAND: str = 'npm i -D eslint-config-airbnb-base'
+_VANILLAJS_PLUGIN_COMMAND: str = 'npm i -D eslint-plugin-import@^2.20.1'
+_VANILLAJS_COMMANDS: List[str] = [
+    _VANILLAJS_ESLINT_COMMAND,
+    _VANILLAJS_AIRBNB_COMMAND,
+    _VANILLAJS_PLUGIN_COMMAND
+]
 _VANILLAJS_PUBLIC_DIR: str = 'public'
 _VANILLAJS_TESTER_DIR: str = 'test'
 _VANILLAJS_WORK_DIRS = [
