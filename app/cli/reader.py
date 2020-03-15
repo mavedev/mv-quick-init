@@ -1,8 +1,10 @@
 import argparse
+import sys
 
 
 def get_parsed_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
+        conflict_handler='resolve',
         description='Starts a Python or JS project.',
         epilog='https://github.org/mavedev/mv-quick-init'
     )
@@ -16,5 +18,7 @@ def get_parsed_arguments() -> argparse.Namespace:
         action='store_true',
         help='Init a Javascript project.'
     )
+    if not sys.argv[1:]:
+        parser.print_help()
 
     return parser.parse_args()
