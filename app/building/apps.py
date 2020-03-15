@@ -1,13 +1,12 @@
-from app.cli import get_starting_text, get_finaling_text
+from typing import List, Dict, Callable
+
+from app.cli import get_finaling_text
+from .scenario import follow_all
 
 from enum import Enum
 from shutil import copy as shcopy
 import time
 import os
-
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from typing import List
 
 
 class AppType(Enum):
@@ -29,21 +28,16 @@ class PythonApp(App):
     ]
 
     def create(self) -> None:
-        print(get_starting_text(
-            'Generating a virtual environment for the project...'
-        ))
-        self.__setup_venv()
+        commented_actions: Dict[Callable, str] = {
+            self.__setup_venv: 'Generating a virtual '
+                               'environment for the project...',
+            self.__create_work_dirs: 'Creating a config directory.',
+            self.__copy_templates: 'Configuring default user '
+                                   'linting settings...'
+        }
 
-        print(get_starting_text(
-            'Creating a config directory.'
-        ))
-        self.__create_work_dirs()
-
-        print(get_starting_text(
-            'Configuring default user linting settings...'
-        ))
-        self.__copy_templates()
-
+        follow_all(commented_actions)
+        time.sleep(2)
         print(get_finaling_text(
             'Done.'
         ))
