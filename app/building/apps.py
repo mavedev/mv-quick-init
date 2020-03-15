@@ -3,13 +3,18 @@ from typing import Dict, Callable
 from app.cli import get_finaling_text
 from .scenario import follow_all
 from .constants import (
+    Scenario,
     _PYTHON_WORK_DIRS,
     _PYTHON_EDITOR_DIR,
     _PYTHON_EDITOR_CONF_FILE,
     _PYTHON_TEMPLATE_PATH,
     _PYTHON_TEMPLATE_MAIN_FILE,
     _PYTHON_TEMPLATE_CONF_FILE,
-    _VENV_COMMAND
+    _VENV_COMMAND,
+    _ON_SETUP_ENVIRONMENT,
+    _ON_SETUP_DIRECTORIES,
+    _ON_SETUP_START_FILES,
+    _ON_CONFIGURING_ENDED
 )
 
 from enum import Enum
@@ -27,9 +32,13 @@ class App:
     _SOURCE: str = os.path.dirname(os.path.realpath(__file__))
 
     def create(self) -> None:
-        self._setup_environment()
-        self._setup_directories()
-        self._setup_start_files()
+        scenario: Scenario = {
+            self._setup_environment: _ON_SETUP_ENVIRONMENT,
+            self._setup_directories: _ON_SETUP_DIRECTORIES,
+            self._setup_start_files: _ON_SETUP_START_FILES
+        }
+        follow_all(scenario)
+        print(get_finaling_text(_ON_CONFIGURING_ENDED))
 
     def _setup_environment(self) -> None:
         raise NotImplementedError()
@@ -42,6 +51,27 @@ class App:
 
 
 class PythonApp(App):
+    def _setup_environment(self) -> None:
+        os.system(_VENV_COMMAND)
+
+    def _setup_directories(self) -> None:
+        for dir_ in _PYTHON_WORK_DIRS:
+            os.mkdir(dir_)
+
+    def _setup_start_files(self) -> None:
+        source: str = os.path.abspath(
+            os.path.join(self._SOURCE, _PYTHON_TEMPLATE_PATH)
+        )
+        target: str = os.getcwd()
+        shcopy(
+            os.path.join(source, _PYTHON_TEMPLATE_MAIN_FILE),
+            target
+        )
+        shcopy(
+            os.path.join(source, _PYTHON_TEMPLATE_CONF_FILE),
+            os.path.join(target, _PYTHON_EDITOR_DIR, _PYTHON_EDITOR_CONF_FILE)
+        )
+
     def create(self) -> None:
         commented_actions: Dict[Callable, str] = {
             self.__setup_venv: 'Generating a virtual '
