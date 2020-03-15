@@ -1,6 +1,7 @@
-from .factory import AppFactory
+from .factory import AppFactory, AppType
 
 
 __all__ = [
-    'AppFactory'
+    'AppFactory',
+    'AppType'
 ]
