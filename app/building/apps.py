@@ -27,6 +27,17 @@ class App:
     _SOURCE: str = os.path.dirname(os.path.realpath(__file__))
 
     def create(self) -> None:
+        self._setup_environment()
+        self._setup_directories()
+        self._setup_start_files()
+
+    def _setup_environment(self) -> None:
+        raise NotImplementedError()
+
+    def _setup_directories(self) -> None:
+        raise NotImplementedError()
+
+    def _setup_start_files(self) -> None:
         raise NotImplementedError()
 
 
