@@ -77,5 +77,5 @@ class PythonApp(App):
 
 
 class JSApp(App):
-    def create(self) -> None:
+    def _setup_environment(self) -> None:
         pass

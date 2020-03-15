@@ -26,6 +26,8 @@ _PYTHON_TEMPLATE_MAIN_FILE: str = '__main__.py'
 _PYTHON_EDITOR_CONF_FILE: str = 'settings.json'
 _PYTHON_TEMPLATE_PATH: str = '../../templates/python'
 
+# VanillaJS config.
+
 
 # Ouptut.
 _ON_SETUP_ENVIRONMENT: str = 'Configuring environment for the project...'
