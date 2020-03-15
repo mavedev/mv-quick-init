@@ -4,19 +4,28 @@ from typing import List, Dict, Union, Callable
 Comments = Union[str]
 Scenario = Dict[Callable, Comments]
 
+# Common config.
+_COMMON_KEEP_FILE: str = '.gitkeep'
+_COMMON_COMMAND_GITINIT: str = 'git init'
+
 # Python config.
-_PYTHON_WORK_DIRS: List[str] = [
-    '.vscode',
-    'app'
-]
 _PYTHON_EDITOR_DIR: str = '.vscode'
-_PYTHON_EDITOR_CONF_FILE: str = 'settings.json'
-_PYTHON_TEMPLATE_PATH: str = '../../templates/python'
+_PYTHON_APP_DIR: str = 'app'
+_PYTHON_WORK_DIRS: List[str] = [
+    _PYTHON_EDITOR_DIR,
+    _PYTHON_APP_DIR
+]
+_PYTHON_COMMAND_VENV: str = 'virtualenv venv'
+_PYTHON_COMMANDS: List[str] = [
+    _PYTHON_COMMAND_VENV,
+    _COMMON_COMMAND_GITINIT
+]
+_PYTHON_COMMON_IGNORE_FILE: str = '.gitignore'
 _PYTHON_TEMPLATE_CONF_FILE: str = 'default.json'
 _PYTHON_TEMPLATE_MAIN_FILE: str = '__main__.py'
+_PYTHON_EDITOR_CONF_FILE: str = 'settings.json'
+_PYTHON_TEMPLATE_PATH: str = '../../templates/python'
 
-# Commands.
-_VENV_COMMAND: str = 'virtualenv venv'
 
 # Ouptut.
 _ON_SETUP_ENVIRONMENT: str = 'Configuring environment for the project...'
